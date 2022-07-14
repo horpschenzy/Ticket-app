@@ -29,4 +29,12 @@ class DepartmentController extends Controller
     {
         return view('admin.add_department');
     }
+    public function edit($id)
+    {
+        return view('admin.edit_department');
+    }
+    public function update()
+    {
+
+    }
 }
