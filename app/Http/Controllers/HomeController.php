@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -30,6 +31,7 @@ class HomeController extends Controller
 
     public function users()
     {
-        return view('admin.users');
+        $users = User::all();
+        return view('admin.users',['users' => $users]);
     }
 }
