@@ -21,10 +21,11 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
+            $notification = array(
                 'message' => $validator->errors()->first(),
-                'code' => '01',
-            ]);
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
         }
         $user = User::Create([
             'firstname' => $request->firstname,
@@ -34,7 +35,11 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-        return redirect('/users')->with('message','User Added successfully');
+        $notification = array(
+            'message' => 'User Added successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect('/users')->with($notification);
     }
     public function addUserView()
     {
