@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,7 +19,8 @@ class HomeController extends Controller
 
     public function department()
     {
-        return view('admin.department');
+        $departments = Department::all();
+        return view('admin.department',['departments' => $departments]);
     }
 
     public function ticket()
