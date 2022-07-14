@@ -50,7 +50,8 @@
                         @endforeach
                     </table>
                     @else
-                    <h5 class="card-title mb-0">Empty card</h5>
+                    <h5 class="card-title mb-0">Opps no Users yet</h5>
+                    <a href="{{ route('user.view')}}" class="btn btn-primary h3 mb-3">Click here to Add a User</a>
                     @endif
                 </div>
             </div>

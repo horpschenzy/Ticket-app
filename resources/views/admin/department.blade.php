@@ -38,7 +38,8 @@
                         @endforeach
                     </table>
                     @else
-                    <h5 class="card-title mb-0">Empty card</h5>
+                    <h5 class="card-title mb-0">Opps no Departments yet</h5>
+                    <a href="{{ route('department.view')}}" class="btn btn-primary h3 mb-3">Click here to Add a Departments</a>
                     @endif
                 </div>
             </div>
