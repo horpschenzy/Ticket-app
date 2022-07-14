@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DepartmentController;
 
@@ -15,11 +16,14 @@ use App\Http\Controllers\DepartmentController;
 |
 */
 
-Route::get('/signin', [HomeController::class, 'signin'])->name('signin');
+Route::get('/signin', [HomeController::class, 'signin'])->name('login');
+Route::post('/login', [AuthController::class, 'customLogin'])->name('signin');
 Route::get('/signup', [App\Http\Controllers\HomeController::class, 'signup'])->name('signup');
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
-Route::get('/department', [App\Http\Controllers\HomeController::class, 'department'])->name('department');
-Route::post('/add-department', [DepartmentController::class, 'addDepartment'])->name('add.department');
-Route::get('/add-department', [DepartmentController::class, 'addDepartmentView'])->name('department.view');
-Route::get('/ticket', [App\Http\Controllers\HomeController::class, 'ticket'])->name('ticket');
-Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+    Route::get('/department', [App\Http\Controllers\HomeController::class, 'department'])->name('department');
+    Route::post('/add-department', [DepartmentController::class, 'addDepartment'])->name('add.department');
+    Route::get('/add-department', [DepartmentController::class, 'addDepartmentView'])->name('department.view');
+    Route::get('/ticket', [App\Http\Controllers\HomeController::class, 'ticket'])->name('ticket');
+    Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
+});
