@@ -20,7 +20,7 @@ class DepartmentController extends Controller
                 'code' => '01',
             ]);
         }
-        $subscribe = Department::Create([
+        $department = Department::Create([
             'name'=>$request->name
         ]);
         return redirect('/department')->with('message','Department Added successfully');
