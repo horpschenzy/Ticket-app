@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('lastname');
+            $table->string('ticket_no');
+            $table->string('name');
+            $table->string('email');
             $table->string('phone_no');
-            $table->enum('role',['ADMIN', 'OFFICER','FRONTDESK', 'USER']);
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('departmant_id');
+            $table->dateTime('wait_time');
+            $table->longText('remarks');
+            $table->enum('status', ['PENDING', 'PROCESSING', 'COMPLETED']);
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tickets');
     }
 };
