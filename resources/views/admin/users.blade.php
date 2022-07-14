@@ -16,7 +16,7 @@
                     <h5 class="card-title mb-0">Users</h5>
                 </div>
                 <div class="card-body">
-                    @if(count($users)>1)
+                    @if(count($users)>0)
                     <table class="table table-bodered">
                         <tr>
                             <th scope="col">ID</th> 

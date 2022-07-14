@@ -16,7 +16,7 @@
                     <h5 class="card-title mb-0">Departments</h5>
                 </div>
                 <div class="card-body">
-                    @if(count($departments)>1)
+                    @if(count($departments)>0)
                     <table class="table table-bodered">
                         <tr>
                             <th scope="col">ID</th> 
@@ -39,7 +39,7 @@
                     </table>
                     @else
                     <h5 class="card-title mb-0">Opps no Departments yet</h5>
-                    <a href="{{ route('department.view')}}" class="btn btn-primary h3 mb-3">Click here to Add a Departments</a>
+                    <a href="{{ route('department.view')}}" class="btn btn-primary h3 mb-3">Click here to Add a Department</a>
                     @endif
                 </div>
             </div>

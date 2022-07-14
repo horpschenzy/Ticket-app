@@ -21,7 +21,7 @@ Route::get('/signin', [HomeController::class, 'signin'])->name('login');
 Route::post('/login', [AuthController::class, 'customLogin'])->name('signin');
 Route::get('/signup', [App\Http\Controllers\HomeController::class, 'signup'])->name('signup');
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/department', [App\Http\Controllers\HomeController::class, 'department'])->name('department');
     Route::post('/add-department', [DepartmentController::class, 'addDepartment'])->name('add.department');
     Route::get('/add-department', [DepartmentController::class, 'addDepartmentView'])->name('department.view');
