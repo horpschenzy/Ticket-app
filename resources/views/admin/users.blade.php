@@ -16,7 +16,6 @@
                     <h5 class="card-title mb-0">Users</h5>
                 </div>
                 <div class="card-body">
-                    @if(count($users)>0)
                     <table class="table table-bodered">
                         <tr>
                             <th scope="col">ID</th> 
@@ -26,7 +25,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Actions</th>
                         </tr> 
-                        @foreach($users as $u)
+                        @forelse ($users as $u)
                         <tr>
                             <td>
                                 <span>{{$u->id}}</span>
@@ -47,12 +46,14 @@
                                 <span>Actions here</span>
                             </td>
                         </tr> 
-                        @endforeach
-                    </table>
-                    @else
-                    <h5 class="card-title mb-0">Opps no Users yet</h5>
-                    <a href="{{ route('user.view')}}" class="btn btn-primary h3 mb-3">Click here to Add a User</a>
-                    @endif
+                        @empty
+                        <tr>
+                            <h5 class="card-title mb-0">Oops no Users yet</h5>
+                            <a href="{{ route('user.view')}}" class="btn btn-primary h3 mb-3">Click here to Add a User</a>
+                        </tr>
+                        @endforelse
+                    </table> 
+                        
                 </div>
             </div>
         </div>
