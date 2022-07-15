@@ -34,4 +34,9 @@ class HomeController extends Controller
         $users = User::all();
         return view('admin.users',['users' => $users]);
     }
+    public function guest()
+    {
+        $departments = Department::all();
+        return view('home',['departments'=>$departments]);
+    }
 }

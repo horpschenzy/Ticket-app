@@ -18,6 +18,7 @@ use App\Http\Controllers\DepartmentController;
 */
 
 Route::get('/signin', [HomeController::class, 'signin'])->name('login');
+Route::get('/', [HomeController::class, 'guest'])->name('home');
 Route::post('/login', [AuthController::class, 'customLogin'])->name('signin');
 Route::get('/signup', [App\Http\Controllers\HomeController::class, 'signup'])->name('signup');
 
