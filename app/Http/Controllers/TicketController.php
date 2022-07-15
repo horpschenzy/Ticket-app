@@ -32,9 +32,9 @@ class TicketController extends Controller
             "ticket_no" => uniqid('TIC-'),
         ]);
         $notification = array(
-            'message' => 'User Added successfully!',
+            'message' => 'Your service request is submitted and processed accordingly kindly hold on at the waiting area for instructions on proceeding to your service',
             'alert-type' => 'success'
         );
-        return redirect('/users')->with($notification);
+        return redirect('/')->with($notification);
     }
 }
