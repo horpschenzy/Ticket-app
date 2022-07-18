@@ -57,7 +57,7 @@
 				<div class="sidebar-cta">
 					<div class="sidebar-cta-content">
 						<div class="d-grid">
-							<a href="upgrade-to-pro.html" class="btn btn-primary">Logout</a>
+							<a href="{{ route('logout')}}" class="btn btn-primary">Logout</a>
 						</div>
 					</div>
 				</div>

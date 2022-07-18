@@ -20,9 +20,11 @@ use App\Http\Controllers\DepartmentController;
 Route::get('/signin', [HomeController::class, 'signin'])->name('login');
 Route::get('/', [HomeController::class, 'guest'])->name('home');
 Route::post('/login', [AuthController::class, 'customLogin'])->name('signin');
-Route::get('/signup', [App\Http\Controllers\HomeController::class, 'signup'])->name('signup');
+// Route::get('/signup', [App\Http\Controllers\HomeController::class, 'signup'])->name('signup');
+Route::post('/create/ticket', [App\Http\Controllers\TicketController::class, 'createTicket'])->name('createTicket');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/department', [App\Http\Controllers\HomeController::class, 'department'])->name('department');
     Route::post('/add-department', [DepartmentController::class, 'addDepartment'])->name('add.department');
