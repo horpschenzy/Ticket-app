@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -38,5 +39,10 @@ class HomeController extends Controller
     {
         $departments = Department::all();
         return view('home',['departments'=>$departments]);
+    }
+    public function waitList()
+    {
+        $tickets = Ticket::all();
+        return view('waitlist',['tickets'=>$tickets]);
     }
 }
