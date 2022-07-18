@@ -8,21 +8,17 @@ use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
-    public function submitForm(Request $request)
+    public function createTicket(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email',
-            'department' => 'required|string',
+            'department' => 'required',
             'phone' => 'required|string'
         ]);
 
         if ($validator->fails()) {
-            $notification = array(
-                'message' => $validator->errors()->first(),
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);
+            return response()->json(['message' => $validator->errors()->first()], 422);
         }
         $ticket = Ticket::Create([
             'name' => $request->name,
@@ -30,11 +26,12 @@ class TicketController extends Controller
             'phone' => $request->phone,
             'department_id' => $request->department,
             "ticket_no" => uniqid('TIC-'),
+            "wait_time" => now(),
         ]);
-        $notification = array(
-            'message' => 'Your service request is submitted and processed accordingly kindly hold on at the waiting area for instructions on proceeding to your service',
-            'alert-type' => 'success'
-        );
-        return redirect('/')->with($notification);
+        return response()->json([
+                        "title" => "Dear $request->name,",
+                        "message" => "Your service request is submitted and processed accordingly. \n
+                            Kindly hold on at the waiting area for instructions on proceeding to your service"
+                        ], 200);
     }
 }

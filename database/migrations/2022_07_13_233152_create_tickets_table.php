@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('ticket_no');
             $table->string('name');
             $table->string('email')->nullable();
-            $table->string('phone_no')->nullable();
-            $table->string('departmant_id')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('department_id')->nullable();
             $table->dateTime('wait_time')->nullable();
+            $table->dateTime('call_in_time')->nullable();
             $table->longText('remarks')->nullable();
             $table->enum('status', ['PENDING', 'PROCESSING', 'COMPLETED'])->default('PENDING');
             $table->timestamps();

@@ -11,6 +11,8 @@
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.7/vue.min.js" integrity="sha512-PhuYrdDBtBeUjY7KTmjRYFFadw8uXXdTmzZyhCHZewYsqZJ0pxFCwU528jRoil42LXMW3ksegQT5zdjkfiR1IA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -77,90 +79,38 @@
       <p class="lead">Welcome to Ticket System. Kindly provide the following details to proceed</p>
     </div>
 
-    <div class="row g-5">
-      {{-- <div class="col-md-5 col-lg-4 order-md-last">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Your cart</span>
-          <span class="badge bg-primary rounded-pill">3</span>
-        </h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">$12</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Second product</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">$8</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Third item</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">$5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between bg-light">
-            <div class="text-success">
-              <h6 class="my-0">Promo code</h6>
-              <small>EXAMPLECODE</small>
-            </div>
-            <span class="text-success">−$5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Total (USD)</span>
-            <strong>$20</strong>
-          </li>
-        </ul>
-
-        <form class="card p-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
-        </form> --}}
-      {{-- </div> --}}
-      <div class="col-md-7 col-lg-8">
+    <div class="row g-5" id="ticket">
+      <div class="col-md-2 col-lg-2"></div>
+      <div class="col-md-8 col-lg-8">
         <h4 class="mb-3">Book A Session</h4>
-        <form method="POST" action="" class="needs-validation">
+        <form @submit.prevent="submit" method="POST" class="needs-validation">
             @csrf
           <div class="row g-3">
             <div class="col-12">
               <label for="firstName" class="form-label">Full Name</label>
-              <input type="text" name="name" class="form-control" id="firstName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
+              <input type="text" v-model="form.name" class="form-control" id="name" placeholder="" value="" required>
             </div>
 
             <div class="col-12">
               <label for="email" class="form-label">Email</label>
-              <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address.
-              </div>
+              <input type="email" v-model="form.email" class="form-control" id="email" placeholder="you@example.com" required>
             </div>
 
             <div class="col-12">
               <label for="address" class="form-label">Phone Number</label>
-              <input type="tel" class="form-control" name="phone" id="address" placeholder="+234-1234" required>
+              <input type="tel" class="form-control" v-model="form.phone" id="address" placeholder="+234-1234" required>
               <div class="invalid-feedback">
                 Please enter your Phone Number.
               </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-12">
               <label for="country" class="form-label">Department</label>
-              <select class="form-select" name="department" id="country" required>
+              <select class="form-select" v-model="form.department" id="country" required>
                 @forelse($departments as $d)
                 <option value="{{$d->id}}">{{$d->name}}</option>
                 @empty
-                <option>No departments yet</option>
+                <option value="">No departments yet</option>
                 @endforelse
               </select>
               <div class="invalid-feedback">
@@ -169,18 +119,18 @@
             </div>
           </div>
 
-          <hr class="my-4">
 
-          <div class="form-check">
+          {{-- <div class="form-check">
             <input type="checkbox" class="form-check-input" id="save-info">
             <label class="form-check-label" for="save-info">Save this information for next time</label>
-          </div>
+          </div> --}}
 
           <hr class="my-4">
 
           <button class="w-100 btn btn-primary btn-lg" type="submit">Submit</button>
         </form>
       </div>
+      <div class="col-md-2 col-lg-2"></div>
     </div>
   </main>
 
@@ -197,6 +147,38 @@
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 	<script src="{{ asset('js/toastr.min.js') }}"></script>
 	<script src="{{ asset('js/app.js') }}"></script>
+  <script>
+    let ticketCreation = new Vue({
+          el: "#ticket",
+          data() {
+            return {
+              form: {
+                name: '',
+                email: '',
+                phone: '',
+                department: ''
+              }
+            }
+          },
+          methods: {
+            submit(){
+              axios.post("/create/ticket", this.form)
+              .then(response => {
+                this.form.name = '';
+                this.form.email = '';
+                this.form.phone = '';
+                this.form.department = '';
+                toastr.success(response.data.message,response.data.title, {timeOut: 20000});
+              }).catch(error => {
+                toastr.error(error.data.message);
+              });
+            }
+          },
+          mounted() {
+            // alert('Hello');
+          },
+    })
+  </script>
     <script>
         @if (Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}";
