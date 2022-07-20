@@ -16,7 +16,7 @@
                     <h5 class="card-title mb-0">Departments</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bodered">
+                    <table class="table table-stripped">
                         <tr>
                             <th scope="col">ID</th> 
                             <th scope="col">Department</th>
