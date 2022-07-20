@@ -24,7 +24,7 @@ class TicketFactory extends Factory
             'wait_time' => now(),
             'call_in_time' => now(),
             'status' => fake()->randomElement(['PENDING', 'PROCESSING', 'COMPLETED ']),
-            'department_id' => fake()->randomElement(['DEPARTMENT 1', 'DEPARTMENT 1', 'DEPARTMENT 1', 'DEPARTMENT 1']),
+            'department_id' => fake()->randomElement(['DEPARTMENT 1', 'DEPARTMENT 2', 'DEPARTMENT 3', 'DEPARTMENT 4']),
         ];
     }
 }

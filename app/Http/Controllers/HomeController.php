@@ -27,7 +27,8 @@ class HomeController extends Controller
 
     public function ticket()
     {
-        return view('admin.ticket');
+        $tickets = Ticket::all();
+        return view('admin.ticket',['tickets'=>$tickets]);
     }
 
     public function users()
@@ -42,7 +43,7 @@ class HomeController extends Controller
     }
     public function waitList()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::where('status', 'PENDING')->orWhere('status', 'PROCESSING')->get();
         return view('waitlist',['tickets'=>$tickets]);
     }
 }

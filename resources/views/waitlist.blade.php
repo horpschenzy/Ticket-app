@@ -82,7 +82,6 @@
         <table class="table table-stripped">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Ticket No</th>
                 <th scope="col">Name</th>
                 <th scope="col">Phone Number</th>
@@ -94,7 +93,6 @@
             <tbody>
                 @forelse($tickets as $t)
               <tr>
-                <th scope="row">{{$t->id}}</th>
                 <td>{{$t->ticket_no}}</td>
                 <td>{{$t->name}}</td>
                 <td>{{$t->phone}}</td>
