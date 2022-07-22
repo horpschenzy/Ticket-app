@@ -17,6 +17,8 @@
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.7/vue.min.js" integrity="sha512-PhuYrdDBtBeUjY7KTmjRYFFadw8uXXdTmzZyhCHZewYsqZJ0pxFCwU528jRoil42LXMW3ksegQT5zdjkfiR1IA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -28,7 +30,7 @@
 				</a>
 
 				<ul class="sidebar-nav">
-
+					@if(auth()->user()->role =='ADMIN')
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="{{ route('dashboard')}}">
                             <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
@@ -40,7 +42,6 @@
                             <i class="align-middle" data-feather="user"></i> <span class="align-middle">Department</span>
                         </a>
 					</li>
-
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="{{ route('ticket')}}">
                             <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Ticket</span>
@@ -52,6 +53,26 @@
                             <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Users</span>
                         </a>
 					</li>
+					@endif
+					@if(auth()->user()->role =='FRONTDESK')
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{{ route('create.ticket')}}">
+                            <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Add Ticket</span>
+                        </a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{{ route('ticket')}}">
+                            <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Tickets</span>
+                        </a>
+					</li>
+					@endif
+					@if(auth()->user()->role =='OFFICER')
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{{ route('ticket')}}">
+                            <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Tickets</span>
+                        </a>
+					</li>
+					@endif
 				</ul>
 
 				<div class="sidebar-cta">
@@ -281,6 +302,38 @@
             }
         @endif
     </script>
+	<script>
+		let adminTicketCreation = new Vue({
+			  el: "#addticket",
+			  data() {
+				return {
+				  form: {
+					name: '',
+					email: '',
+					phone: '',
+					department: ''
+				  }
+				}
+			  },
+			  methods: {
+				submit(){
+				  axios.post("/create/ticket", this.form)
+				  .then(response => {
+					this.form.name = '';
+					this.form.email = '';
+					this.form.phone = '';
+					this.form.department = '';
+					toastr.success(response.data.message,response.data.title, {timeOut: 20000});
+				  }).catch(error => {
+					toastr.error(error.data.message);
+				  });
+				}
+			  },
+			  mounted() {
+				// alert('Hello');
+			  },
+		})
+	  </script>
 
 </body>
 

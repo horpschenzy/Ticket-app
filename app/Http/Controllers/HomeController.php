@@ -25,6 +25,12 @@ class HomeController extends Controller
         return view('admin.department',['departments' => $departments]);
     }
 
+    public function createTicket()
+    {
+        $departments = Department::all();
+        return view('admin.add_ticket',['departments' => $departments]);
+    }
+
     public function ticket()
     {
         $tickets = Ticket::all();

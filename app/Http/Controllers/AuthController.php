@@ -26,6 +26,14 @@ class AuthController extends Controller
                 return redirect()->route('agent')
                     ->with($notification);
             }
+            if (auth()->user()->role == 'FRONTDESK') {
+                return redirect()->route('ticket')
+                ->with($notification);
+            }
+            if (auth()->user()->role == 'OFFICER') {
+                return redirect()->route('ticket')
+                ->with($notification);
+            }
             return redirect()->route('dashboard')
                 ->with($notification);
         } else {
