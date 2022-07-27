@@ -33,7 +33,7 @@ class HomeController extends Controller
 
     public function ticket()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::latest();
         return view('admin.ticket',['tickets'=>$tickets]);
     }
 

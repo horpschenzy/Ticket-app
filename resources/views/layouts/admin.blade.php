@@ -334,6 +334,40 @@
 			  },
 		})
 	  </script>
+	  <script>
+		let ticketCreation = new Vue({
+			  el: "#addRemark",
+			  data() {
+				return {
+				  form: {
+					name: '',
+					email: '',
+					phone: '',
+					department: '',
+					remarks: ''
+				  }
+				}
+			  },
+			  methods: {
+				submit(){	
+				  axios.put(`/view-ticket/${ticket.id}`, this.form)
+				  .then(response => {
+					this.form.name = '';
+					this.form.email = '';
+					this.form.phone = '';
+					this.form.department = '';
+					this.form.remarks = '';
+					toastr.success(response.data.message,response.data.title, {timeOut: 20000});
+				  }).catch(error => {
+					toastr.error(error.data.message);
+				  });
+				}
+			  },
+			  mounted() {
+				// alert('Hello');
+			  },
+		})
+	  </script>
 
 </body>
 

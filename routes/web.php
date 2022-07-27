@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/add-department', [DepartmentController::class, 'addDepartmentView'])->name('department.view');
     Route::get('/add-ticket', [HomeController::class, 'createTicket'])->name('create.ticket');
     Route::get('/ticket', [App\Http\Controllers\HomeController::class, 'ticket'])->name('ticket');
+    Route::get('/view-ticket/{ticket}', [App\Http\Controllers\TicketController::class, 'viewTicket'])->name('view.ticket');
+    Route::put('/view-ticket/{ticket}', [App\Http\Controllers\TicketController::class, 'addRemark'])->name('update.ticket');
     Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
     Route::post('/add-user', [UserController::class, 'addUser'])->name('add.user');
     Route::get('/add-user', [UserController::class, 'addUserView'])->name('user.view');

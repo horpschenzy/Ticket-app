@@ -34,4 +34,22 @@ class TicketController extends Controller
                             Kindly hold on at the waiting area for instructions on proceeding to your service"
                         ], 200);
     }
+    public function viewTicket(Request $request, Ticket $ticket)
+    {
+        return view('admin.view_ticket',['ticket' => $ticket]);
+    }
+    public function addRemark(Request $request, Ticket $ticket)
+    {
+        $validator = Validator::make($request->all(),[
+            'remarks' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()->first()], 422);
+        }
+        $ticket->update(['remarks' => $request->remarks]);
+        return response()->json([
+            "title" => "Dear ,", auth()->user()->name,
+            "message" => "Your remark has been added successfully."
+            ], 200);
+    }
 }
