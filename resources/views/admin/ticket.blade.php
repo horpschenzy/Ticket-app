@@ -21,6 +21,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Service Department</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -32,6 +33,7 @@
                             <td>{{$t->email}}</td>
                             <td>{{$t->department_id}}</td>
                             <td>{{$t->status}}</td>
+                            <td><a href="/view-ticket/{{$t->id}}">View Ticket</a></td>
                           </tr>
                           @empty
                             <h5 class="card-title mb-0">No Visitors Yet</h5>

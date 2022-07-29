@@ -46,7 +46,10 @@ class TicketController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 422);
         }
-        $ticket->update(['remarks' => $request->remarks]);
+        $ticket->update([
+            'remarks' => $request->remarks,
+            'status' => 'COMPLETED'
+    ]);
         return response()->json([
             "title" => "Dear ,", auth()->user()->name,
             "message" => "Your remark has been added successfully."
