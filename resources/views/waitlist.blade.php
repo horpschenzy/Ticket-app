@@ -97,7 +97,7 @@
                 <td>{{$t->name}}</td>
                 <td>{{$t->phone}}</td>
                 <td>{{$t->email}}</td>
-                <td>{{$t->department_id}}</td>
+                <td>{{$t->department->name}}</td>
                 <td>{{$t->status}}</td>
               </tr>
               @empty

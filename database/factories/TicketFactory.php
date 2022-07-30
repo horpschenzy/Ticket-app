@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +25,7 @@ class TicketFactory extends Factory
             'wait_time' => now(),
             'call_in_time' => now(),
             'status' => fake()->randomElement(['PENDING', 'PROCESSING', 'COMPLETED ']),
-            'department_id' => fake()->randomElement(['DEPARTMENT 1', 'DEPARTMENT 2', 'DEPARTMENT 3', 'DEPARTMENT 4']),
+            'department_id' => function (){ return Department::inRandomOrder()->first()->id; },
         ];
     }
 }

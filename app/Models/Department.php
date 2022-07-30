@@ -10,4 +10,9 @@ class Department extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function ticket()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

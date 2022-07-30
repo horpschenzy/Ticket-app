@@ -46,7 +46,6 @@
                               <option value="ADMIN">Admin</option>
                               <option value="OFFICER">Office</option>
                               <option value="FRONTDESK">Front Desk</option>
-                              <option value="USER">User</option>
                             </select>
                             <div class="invalid-feedback">Example invalid custom select feedback</div>
                           </div>

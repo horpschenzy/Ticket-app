@@ -31,7 +31,7 @@
                             <td>{{$t->name}}</td>
                             <td>{{$t->phone}}</td>
                             <td>{{$t->email}}</td>
-                            <td>{{$t->department_id}}</td>
+                            <td>{{$t->department->name}}</td>
                             <td>{{$t->status}}</td>
                             <td><a href="/view-ticket/{{$t->id}}">View Ticket</a></td>
                           </tr>

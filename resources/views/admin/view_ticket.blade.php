@@ -42,14 +42,14 @@
         
                     <div class="col-12">
                       <label for="country" class="form-label">Department</label>
-                      <input value="{{$ticket->department_id}}" type="text" class="form-control" name="department" id="address" placeholder="+234-1234" disabled>
+                      <input value="{{$ticket->department->name}}" type="text" class="form-control" name="department" id="address" placeholder="+234-1234" disabled>
                       <div class="invalid-feedback">
                         Please select a Department.
                       </div>
                     </div>
                   </div>
                   <hr class="my-4">
-                   {{-- @empty($ticket->remarks)
+                   @if($ticket->remarks == null)
                    <div class="col-12">
                     <label for="address" class="form-label">Remark</label>
                     <textarea value="" type="text" class="form-control" name="remarks" id="address" placeholder="+234-1234" ></textarea>
@@ -57,14 +57,15 @@
                       Please enter your Remark.
                     </div>
                   </div>
-                  @endempty --}}
+                  @else
                   <div class="col-12">
                     <label for="address" class="form-label">Remark</label>
-                    <textarea value="{{$ticket->remarks}}" type="text" class="form-control" name="remarks" id="address" placeholder="+234-1234" ></textarea>
+                    <textarea value="" type="text" class="form-control" name="remarks" id="address" placeholder="Enter remark">{{$ticket->remarks}}</textarea>
                     <div class="invalid-feedback">
                       Please enter your Remark.
                     </div>
                   </div>
+                  @endif
         
                   {{-- <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="save-info">

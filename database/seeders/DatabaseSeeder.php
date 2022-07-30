@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::factory(10)->create();
-        \App\Models\Ticket::factory(10)->create();
         DB::table("departments")->insertOrIgnore([
             ['name' => 'Department 1'],
             ['name' => 'Department 2'],
@@ -24,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Department 4'],
         ],
         );
+        \App\Models\Ticket::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
