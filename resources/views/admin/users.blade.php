@@ -22,6 +22,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Phone Number</th>
                             <th scope="col">Role</th>
+                            <th scope="col">Department</th>
                             <th scope="col">Email</th>
                             <th scope="col">Actions</th>
                         </tr> 
@@ -38,6 +39,9 @@
                             </td>
                             <td>
                                 <span>{{$u->role}}</span>
+                            </td>
+                            <td>
+                                <span>{{$u->department->name}}</span>
                             </td>
                             <td>
                                 <span>{{$u->email}}</span>

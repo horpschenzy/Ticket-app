@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <table class="table table-stripped">
+                    <table class="table table-stripped table-responsive">
                         <thead>
                           <tr>
                             <th scope="col">Ticket No</th>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('lastname')->nullable();
             $table->string('phone')->nullable();
             $table->enum('role',['ADMIN', 'OFFICER','FRONTDESK', 'USER'])->default('USER');
+            $table->string('department_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
