@@ -50,7 +50,7 @@ class TicketController extends Controller
             'remarks' => $request->remarks,
             'status' => 'COMPLETED'
     ]);
-        return response()->json([
+        return view('admin.ticket')->with([
             "title" => "Dear ,", auth()->user()->name,
             "message" => "Your remark has been added successfully."
             ], 200);
