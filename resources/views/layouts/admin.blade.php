@@ -332,6 +332,28 @@
 			  mounted() {
 				// alert('Hello');
 			  },
+		});
+
+		let waitList = new Vue({
+			  el: "#waitlist",
+			  data() {
+				return {
+				  waitlists: []
+				}
+			  },
+			  methods: {
+				waitList(){	
+				  axios.get('/waitlists')
+				  .then(response => {
+					console.log(response);
+				  }).catch(error => {
+					toastr.error(error.data.message);
+				  });
+				}
+			  },
+			  mounted() {
+				this.waitList();
+			  },
 		})
 	  </script>
 	  <script>

@@ -49,10 +49,11 @@ class TicketController extends Controller
         $ticket->update([
             'remarks' => $request->remarks,
             'status' => 'COMPLETED'
-    ]);
-        return response()->json([
-            "title" => "Dear ,", auth()->user()->name,
-            "message" => "Your remark has been added successfully."
-            ], 200);
+        ]);
+        $notification = array(
+            'message' => 'Ticket completed Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect('/ticket')->with($notification);
     }
 }

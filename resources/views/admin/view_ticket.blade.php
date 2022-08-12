@@ -6,7 +6,7 @@
 @section('content')
 <div class="container-fluid p-0">
 
-    <h1 class="h3 mb-3">Add Remark To Ticket</h1>
+    <h1 class="h3 mb-3">Add Remark To Ticket {{$ticket->ticket_no}}</h1>
     {{-- {{ route(add.department.view)}} --}}
 
     {{-- <a href="" class="btn btn-primary h3 mb-3">Add Department</a> --}}

@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.98.0">
+    <meta name="author" content="">
+    <meta name="generator" content="">
     <title>Ticket System</title>
 
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -78,8 +78,8 @@
       <h2>Wait List</h2>
       <p class="lead">Welcome to Ticket System. Kindly check for your details below</p>
     </div>
-    {{-- <div class="row g-5" id="ticket"> --}}
-        <table class="table table-stripped">
+    <div class="row g-5" id="waitlist">
+        <table class="table table-stripped" >
             <thead>
               <tr>
                 <th scope="col">Ticket No</th>
@@ -88,24 +88,23 @@
                 <th scope="col">Email</th>
                 <th scope="col">Service Department</th>
                 <th scope="col">Status</th>
+                <th scope="col">Time</th>
               </tr>
             </thead>
             <tbody>
-                @forelse($tickets as $t)
-              <tr>
-                <td>{{$t->ticket_no}}</td>
-                <td>{{$t->name}}</td>
-                <td>{{$t->phone}}</td>
-                <td>{{$t->email}}</td>
-                <td>{{$t->department->name}}</td>
-                <td>{{$t->status}}</td>
+                
+              <tr v-for="waitlist in waitlists">
+                <td>@{{waitlist.ticket_no}}</td>
+                <td>@{{waitlist.name}}</td>
+                <td>@{{waitlist.phone}}</td>
+                <td>@{{waitlist.email}}</td>
+                <td>@{{waitlist.department_id}}</td>
+                <td>@{{waitlist.status}}</td>
+                <td>@{{waitlist.created_at}}</td>
               </tr>
-              @empty
-              <h4 class="mb-3">No Visitors Yet</h4>
-              @endforelse
             </tbody>
           </table>
-      {{-- </div> --}}
+      </div>
   </main>
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2017–2022 Ticket System</p>
@@ -118,8 +117,8 @@
 </div>
 
 <script src="{{ asset('js/jquery.min.js') }}"></script>
-	<script src="{{ asset('js/toastr.min.js') }}"></script>
-	<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/toastr.min.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <script>
     @if (Session::has('message'))
         var type = "{{ Session::get('alert-type', 'info') }}";
@@ -138,6 +137,34 @@
         break;
         }
     @endif
+</script>
+<script>
+  let waitList = new Vue({
+			  el: "#waitlist",
+			  data() {
+				return {
+				  waitlists: []
+				}
+			  },
+			  methods: {
+				waitList(){	
+				  axios.get('/waitlists')
+				  .then(response => {
+					console.log(response.data.data);
+          this.waitlists = response.data.data;
+				  }).catch(error => {
+					toastr.error(error.data.message);
+				  });
+				}
+			  },
+        mounted: function () {
+            this.$nextTick(function () {
+                window.setInterval(() => {
+                    this.waitList();
+                },3000);
+            })
+        }
+		})
 </script>
 {{-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 

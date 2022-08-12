@@ -52,4 +52,12 @@ class HomeController extends Controller
         $tickets = Ticket::where('status', 'PENDING')->orWhere('status', 'PROCESSING')->get();
         return view('waitlist',['tickets'=>$tickets]);
     }
+    
+    public function getWaitList()
+    {
+        $tickets = Ticket::where('status', 'PENDING')->orWhere('status', 'PROCESSING')->get();
+        return response()->json(['status' => true, 'data' => $tickets]);
+    }
+
+
 }
