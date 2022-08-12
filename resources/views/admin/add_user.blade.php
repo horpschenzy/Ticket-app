@@ -41,15 +41,29 @@
                         </div>
                         <br>
                         <div class="form-group">
+                            <label for="exampleInputEmail1">Role</label>
                             <select name="role" class="custom-select" required>
-                              <option value="">Role</option>
+                              <option value="">Select Role</option>
                               <option value="ADMIN">Admin</option>
-                              <option value="OFFICER">Office</option>
+                              <option value="OFFICER">Officer</option>
                               <option value="FRONTDESK">Front Desk</option>
                             </select>
                             <div class="invalid-feedback">Example invalid custom select feedback</div>
                           </div>
                         <br>
+                        
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Select Department</label>
+                            <select name="department" class="custom-select" required>
+                                @forelse($departments as $d)
+                              <option value="{{$d->id}}">{{$d->name}}</option>
+                              @empty
+                              <option>No departments Yet</option>
+                            @endforelse
+                            </select>
+                            <div class="invalid-feedback">Example invalid custom select feedback</div>
+                          </div>
+                          <br>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Password</label>
                             <input type="password" name="password" class="form-control" placeholder="Password">

@@ -18,12 +18,17 @@
                     <h5 class="card-title mb-0">Departments</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('add.department')}}" method="POST">
+                    <form action="{{ route('add.department')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                           <label for="exampleInputEmail1">Department Name</label>
                           <input type="text" name="name" class="form-control" placeholder="Enter Department name">
                         </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Department Audio</label>
+                            <input type="file" name="audio" class="form-control">
+                          </div>
                         <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

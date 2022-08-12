@@ -33,7 +33,13 @@ class HomeController extends Controller
 
     public function ticket()
     {
-        $tickets = Ticket::latest()->get();
+        if (auth()->user()->role == "ADMIN" || auth()->user()->role == "FRONTDESK"){
+            $tickets = Ticket::latest()->get();
+        }
+        if (auth()->user()->role == "OFFICER"){
+            $tickets = Ticket::where('department_id', auth()->user()->department_id)->get();
+        }
+
         return view('admin.ticket',['tickets'=>$tickets]);
     }
 

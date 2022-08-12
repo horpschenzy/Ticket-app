@@ -5,6 +5,14 @@
 {{-- Content --}}
 @section('content')
 <div class="container-fluid p-0">
+  <script>
+    function play() {
+      var audio = document.getElementById("audio");
+      audio.play();
+    }
+  </script>
+  <button class="btn btn-primary float-end" value="PLAY" onclick="play()">Call Next Client</button>
+  <audio id="audio" src="{{asset('/audio' .'/'.auth()->user()->department->audio)}}"></audio>
 
     <h1 class="h3 mb-3">Tickets</h1>
 
@@ -12,7 +20,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <table class="table table-stripped">
+                    <table class="table table-stripped table-responsive">
                         <thead>
                           <tr>
                             <th scope="col">Ticket No</th>
@@ -21,7 +29,9 @@
                             <th scope="col">Email</th>
                             <th scope="col">Service Department</th>
                             <th scope="col">Status</th>
+                            @if (auth()->user()->role != "FRONTDESK")
                             <th scope="col">Action</th>
+                            @endif
                           </tr>
                         </thead>
                         <tbody>
@@ -33,7 +43,9 @@
                             <td>{{$t->email}}</td>
                             <td>{{$t->department->name}}</td>
                             <td>{{$t->status}}</td>
+                            @if (auth()->user()->role != "FRONTDESK")
                             <td><a href="/view-ticket/{{$t->id}}">View Ticket</a></td>
+                            @endif
                           </tr>
                           @empty
                             <h5 class="card-title mb-0">No Visitors Yet</h5>

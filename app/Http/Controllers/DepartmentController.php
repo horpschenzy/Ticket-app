@@ -20,8 +20,16 @@ class DepartmentController extends Controller
                 'code' => '01',
             ]);
         }
+        if ($request->hasFile('audio')) {
+        $audio = $request->file('audio');
+        $fullaudio = time().'.'.$audio->getClientOriginalExtension();
+        $dest = public_path('/audio');
+        $audio->move($dest,$fullaudio);
+        $audio = $fullaudio;
+        }
         $department = Department::Create([
-            'name'=>$request->name
+            'name'=>$request->name,
+            'audio'=>$audio
         ]);
         return redirect('/department')->with('message','Department Added successfully');
     }

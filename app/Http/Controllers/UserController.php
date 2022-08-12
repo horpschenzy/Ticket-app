@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -32,6 +33,7 @@ class UserController extends Controller
             'lastname' => $request->lastname,
             'phone' => $request->phone,
             'role' => $request->role,
+            'department_id' => $request->department,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
@@ -43,6 +45,7 @@ class UserController extends Controller
     }
     public function addUserView()
     {
-        return view('admin.add_user');
+        $departments = Department::all();
+        return view('admin.add_user', ['departments' => $departments]);
     }
 }
