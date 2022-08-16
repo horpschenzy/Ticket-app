@@ -48,10 +48,15 @@ class HomeController extends Controller
         $users = User::all();
         return view('admin.users',['users' => $users]);
     }
+
+    public function home()
+    {
+        return view('home');
+    }
     public function guest()
     {
         $departments = Department::all();
-        return view('home',['departments'=>$departments]);
+        return view('booksession',['departments'=>$departments]);
     }
     public function waitList()
     {

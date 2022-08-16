@@ -24,7 +24,9 @@
                             <th scope="col">Role</th>
                             <th scope="col">Department</th>
                             <th scope="col">Email</th>
+                            @if(auth()->user()->role == "ADMIN")
                             <th scope="col">Actions</th>
+                            @endif
                         </tr> 
                         @forelse ($users as $u)
                         <tr>
@@ -46,9 +48,24 @@
                             <td>
                                 <span>{{$u->email}}</span>
                             </td>
-                            <td>
-                                <span>Actions here</span>
+                            @if(auth()->user()->role == "ADMIN")
+                            <td class="nav-item dropdown">
+                                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                                    <i class="align-middle" data-feather="settings"></i>
+                                </a>
+                                <span class=" dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">Actions</span>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="/users/{{$u->id}}/manage"><i class="align-middle me-1" data-feather="edit"></i>Edit</a>
+                                    <form method="POST" action="/users/{{$u->id}}/delete">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="dropdown-item">
+                                            <i class="align-middle me-1" data-feather="delete"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
+                            @endif
                         </tr> 
                         @empty
                         <tr>

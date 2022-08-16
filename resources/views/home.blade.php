@@ -75,62 +75,17 @@
   <main>
     <div class="py-5 text-center">
       <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-      <h2>Checkout form</h2>
-      <p class="lead">Welcome to Ticket System. Kindly provide the following details to proceed</p>
+      <h2>Tickets</h2>
+      <p class="lead">Welcome to Ticket System.</p>
     </div>
 
     <div class="row g-5" id="ticket">
-      <div class="col-md-2 col-lg-2"></div>
-      <div class="col-md-8 col-lg-8">
-        <h4 class="mb-3">Book A Session</h4>
-        <form @submit.prevent="submit" method="POST" class="needs-validation">
-            @csrf
-          <div class="row g-3">
-            <div class="col-12">
-              <label for="firstName" class="form-label">Full Name</label>
-              <input type="text" v-model="form.name" class="form-control" id="name" placeholder="" value="" required>
+      <div class="col-md-4 col-lg-4"></div>
+            <div class="col-md-4 col-lg-4">
+            
+                <a href="{{ route('book-session')}}" class="w-100 btn btn-primary btn-lg" style="">Book A Session</a>
             </div>
-
-            <div class="col-12">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" v-model="form.email" class="form-control" id="email" placeholder="you@example.com" required>
-            </div>
-
-            <div class="col-12">
-              <label for="address" class="form-label">Phone Number</label>
-              <input type="tel" class="form-control" v-model="form.phone" id="address" placeholder="+234-1234" required>
-              <div class="invalid-feedback">
-                Please enter your Phone Number.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="country" class="form-label">Department</label>
-              <select class="form-select" v-model="form.department" id="country" required>
-                @forelse($departments as $d)
-                <option value="{{$d->id}}">{{$d->name}}</option>
-                @empty
-                <option value="">No departments yet</option>
-                @endforelse
-              </select>
-              <div class="invalid-feedback">
-                Please select a Department.
-              </div>
-            </div>
-          </div>
-
-
-          {{-- <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Save this information for next time</label>
-          </div> --}}
-
-          <hr class="my-4">
-
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Submit</button>
-        </form>
-      </div>
-      <div class="col-md-2 col-lg-2"></div>
+        <div class="col-md-4 col-lg-4"></div>
     </div>
   </main>
 
@@ -147,59 +102,5 @@
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 	<script src="{{ asset('js/toastr.min.js') }}"></script>
 	<script src="{{ asset('js/app.js') }}"></script>
-  <script>
-    let ticketCreation = new Vue({
-          el: "#ticket",
-          data() {
-            return {
-              form: {
-                name: '',
-                email: '',
-                phone: '',
-                department: ''
-              }
-            }
-          },
-          methods: {
-            submit(){
-              axios.post("/create/ticket", this.form)
-              .then(response => {
-                this.form.name = '';
-                this.form.email = '';
-                this.form.phone = '';
-                this.form.department = '';
-                toastr.success(response.data.message,response.data.title, {timeOut: 20000});
-              }).catch(error => {
-                toastr.error(error.data.message);
-              });
-            }
-          },
-          mounted() {
-            // alert('Hello');
-          },
-    })
-  </script>
-    <script>
-        @if (Session::has('message'))
-            var type = "{{ Session::get('alert-type', 'info') }}";
-            switch(type){
-            case 'info':
-            toastr.info("{{ Session::get('message') }}");
-            break;
-            case 'warning':
-            toastr.warning("{{ Session::get('message') }}");
-            break;
-            case 'success':
-            toastr.success("{{ Session::get('message') }}");
-            break;
-            case 'error':
-            toastr.error("{{ Session::get('message') }}");
-            break;
-            }
-        @endif
-    </script>
-    {{-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-      <script src="form-validation.js"></script> --}}
   </body>
 </html>

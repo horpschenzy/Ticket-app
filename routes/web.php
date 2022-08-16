@@ -18,7 +18,8 @@ use App\Http\Controllers\DepartmentController;
 */
 
 Route::get('/signin', [HomeController::class, 'signin'])->name('login');
-Route::get('/', [HomeController::class, 'guest'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/book-session', [HomeController::class, 'guest'])->name('book-session');
 Route::get('/wait-list', [HomeController::class, 'waitList'])->name('waitList');
 Route::post('/login', [AuthController::class, 'customLogin'])->name('signin');
 // Route::get('/signup', [App\Http\Controllers\HomeController::class, 'signup'])->name('signup');
@@ -30,6 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/department', [App\Http\Controllers\HomeController::class, 'department'])->name('department');
     Route::post('/add-department', [DepartmentController::class, 'addDepartment'])->name('add.department');
     Route::get('/add-department', [DepartmentController::class, 'addDepartmentView'])->name('department.view');
+    Route::get('/departments/{department}/manage', [DepartmentController::class, 'edit'])->name('edit.department');
+    Route::put('/departments/{department}/update', [DepartmentController::class, 'update'])->name('update.department');
+    Route::delete('/departments/{department}/delete', [DepartmentController::class, 'delete'])->name('delete.department');
     Route::get('/add-ticket', [HomeController::class, 'createTicket'])->name('create.ticket');
     Route::get('/ticket', [App\Http\Controllers\HomeController::class, 'ticket'])->name('ticket');
     Route::get('/view-ticket/{ticket}', [App\Http\Controllers\TicketController::class, 'viewTicket'])->name('view.ticket');
@@ -37,4 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
     Route::post('/add-user', [UserController::class, 'addUser'])->name('add.user');
     Route::get('/add-user', [UserController::class, 'addUserView'])->name('user.view');
+    Route::get('/users/{user}/manage', [UserController::class, 'edit'])->name('edit.user');
+    Route::put('/users/{user}/update', [UserController::class, 'update'])->name('update.user');
+    Route::delete('/users/{user}/delete', [UserController::class, 'delete'])->name('delete.user');
 });
