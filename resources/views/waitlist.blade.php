@@ -98,7 +98,7 @@
                 <td>@{{waitlist.name}}</td>
                 <td>@{{waitlist.phone}}</td>
                 <td>@{{waitlist.email}}</td>
-                <td>@{{waitlist.department_id}}</td>
+                <td>@{{waitlist.department.name}}</td>
                 <td>@{{waitlist.status}}</td>
                 <td>@{{waitlist.created_at}}</td>
               </tr>
@@ -150,7 +150,6 @@
 				waitList(){	
 				  axios.get('/waitlists')
 				  .then(response => {
-					console.log(response.data.data);
           this.waitlists = response.data.data;
 				  }).catch(error => {
 					toastr.error(error.data.message);
