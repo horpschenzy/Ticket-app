@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Ticket;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -20,12 +22,13 @@ class DepartmentController extends Controller
                 'code' => '01',
             ]);
         }
+        $audio = '';
         if ($request->hasFile('audio')) {
-        $audio = $request->file('audio');
-        $fullaudio = time().'.'.$audio->getClientOriginalExtension();
-        $dest = public_path('/audio');
-        $audio->move($dest,$fullaudio);
-        $audio = $fullaudio;
+            $audio = $request->file('audio');
+            $fullaudio = time().'.'.$audio->getClientOriginalExtension();
+            $dest = public_path('/audio');
+            $audio->move($dest,$fullaudio);
+            $audio = $fullaudio;
         }
         $department = Department::Create([
             'name'=>$request->name,
@@ -59,6 +62,7 @@ class DepartmentController extends Controller
                 'code' => '01',
             ]);
         }
+        $audio = '';
         if ($request->hasFile('audio')) {
         $audio = $request->file('audio');
         $fullaudio = time().'.'.$audio->getClientOriginalExtension();
@@ -74,6 +78,12 @@ class DepartmentController extends Controller
     }
     public function delete(Department $department)
     {
+        $check = Ticket::where('department_id', $department->id)->count();
+        $check2 = User::where('department_id', $department->id)->count();
+        // dd($check);
+        if($check > 0 || $check2 > 0){
+            return redirect('/department')->with('message','Please delete TICKETS/USERS relating to this department');
+        }
         if(auth()->user()->role != "ADMIN"){
             abort(403, 'Unauthorized Action');
         }
