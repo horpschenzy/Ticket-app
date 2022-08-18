@@ -36,6 +36,8 @@ class TicketController extends Controller
     }
     public function viewTicket(Request $request, Ticket $ticket)
     {
+        $ticket->status = 'PROCESSING';
+        $ticket->save();
         return view('admin.view_ticket',['ticket' => $ticket]);
     }
     public function addRemark(Request $request, Ticket $ticket)

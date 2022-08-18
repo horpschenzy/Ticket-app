@@ -48,21 +48,33 @@ class HomeController extends Controller
         $users = User::all();
         return view('admin.users',['users' => $users]);
     }
+
+    public function home()
+    {
+        return view('home');
+    }
     public function guest()
     {
         $departments = Department::all();
-        return view('home',['departments'=>$departments]);
+        return view('booksession',['departments'=>$departments]);
     }
     public function waitList()
     {
+        $departments = Department::paginate(5);
+        $departmentIds = $departments->pluck('id')->toArray();
         $tickets = Ticket::where('status', 'PENDING')->orWhere('status', 'PROCESSING')->get();
-        return view('waitlist',['tickets'=>$tickets]);
+        return view('waitlist',['tickets' => $tickets, 'departments' => $departments, 'departmentIds' => json_encode($departmentIds)]);
     }
     
     public function getWaitList()
     {
-        $tickets = Ticket::with('department')->where('status', 'PENDING')->orWhere('status', 'PROCESSING')->get();
-        return response()->json(['status' => true, 'data' => $tickets]);
+        
+        $tickets = Ticket::with('department')->where(function ($q) {
+            $q->where('status', 'PENDING')->orWhere('status', 'PROCESSING');
+        })->whereIn('department_id', request()->department_ids)->select('ticket_no', 'department_id')
+        ->get();
+        $departments = Department::with('ticket')->whereIn('id', request()->department_ids)->get();
+        return response()->json(['status' => true, 'data' => $tickets, 'departments' => $departments]);
     }
 
 

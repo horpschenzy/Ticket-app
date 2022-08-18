@@ -10,9 +10,10 @@
 
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.7/vue.min.js" integrity="sha512-PhuYrdDBtBeUjY7KTmjRYFFadw8uXXdTmzZyhCHZewYsqZJ0pxFCwU528jRoil42LXMW3ksegQT5zdjkfiR1IA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<link href="{{ asset('css/font.css') }}" rel="stylesheet">
+	<script src="{{ asset('js/vue.min.js') }}"> </script>
+	<script src="{{ asset('js/axios.min.js') }}"> </script>
+  
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -67,44 +68,45 @@
       .container {
         max-width: 960px;
     }
+    .blink_me {
+      animation: blinker 1s linear infinite;
+    }
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
     </style>
   </head>
   <body class="bg-light">
     
-<div class="container">
+<div class="row">
   <main>
     <div class="py-5 text-center">
       <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
       <h2>Wait List</h2>
       <p class="lead">Welcome to Ticket System. Kindly check for your details below</p>
     </div>
-    <div class="row g-5" id="waitlist">
+    <div class="row" style="max-width: 140%; margin-right: -250px " id="waitlist">
+      <div class="col-2" v-for="department in departments">
         <table class="table table-stripped" >
-            <thead>
-              <tr>
-                <th scope="col">Ticket No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Email</th>
-                <th scope="col">Service Department</th>
-                <th scope="col">Status</th>
-                <th scope="col">Time</th>
-              </tr>
-            </thead>
-            <tbody>
-                
-              <tr v-for="waitlist in waitlists">
-                <td>@{{waitlist.ticket_no}}</td>
-                <td>@{{waitlist.name}}</td>
-                <td>@{{waitlist.phone}}</td>
-                <td>@{{waitlist.email}}</td>
-                <td>@{{waitlist.department.name}}</td>
-                <td>@{{waitlist.status}}</td>
-                <td>@{{waitlist.created_at}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <thead>
+            <tr>
+              <th scope="col" style="font-size: 15px">@{{department.name}}</th>
+            </tr>
+          </thead>
+          <tbody>
+              
+            <tr v-for="(ticket, index) in department.ticket">
+                <td class="blink_me" v-if="index == 0" v-show="ticket.department_id == department.id" style="font-size: 22px; color:red; width:100%">@{{ ticket.ticket_no }}</td>
+                <td v-else v-show="ticket.department_id == department.id" style="font-size: 20px; width:100%">@{{ ticket.ticket_no }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+        
+    </div>
   </main>
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2017–2022 Ticket System</p>
@@ -143,20 +145,24 @@
 			  el: "#waitlist",
 			  data() {
 				return {
-				  waitlists: []
-				}
+            waitlists: [],
+            departments: [],
+            departmentIds: JSON.parse("{{$departmentIds}}")
+          }
 			  },
 			  methods: {
 				waitList(){	
-				  axios.get('/waitlists')
+				  axios.post('/waitlists', {"department_ids":this.departmentIds})
 				  .then(response => {
-          this.waitlists = response.data.data;
+            this.departments = response.data.departments;
+            this.waitlists = response.data.data;
 				  }).catch(error => {
 					toastr.error(error.data.message);
 				  });
 				}
 			  },
         mounted: function () {
+          console.log();
             this.$nextTick(function () {
                 window.setInterval(() => {
                     this.waitList();

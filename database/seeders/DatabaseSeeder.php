@@ -17,18 +17,34 @@ class DatabaseSeeder extends Seeder
     {
         DB::table("departments")->insertOrIgnore(
             [
-                ['audio' => "http://soundfxcenter.com/movies/jurassic-park/8d82b5_Tyrannosaurus_Rex_Roaring_Sound_Effect.mp3",
+                ['audio' => "newvoice.mp3",
                 'name' => 'Department 1'],
-                ['audio' => "http://soundfxcenter.com/movies/jurassic-park/8d82b5_Tyrannosaurus_Rex_Roaring_Sound_Effect.mp3",
+                ['audio' => "newvoice.mp3",
                 'name' => 'Department 2'],
-                ['audio' => "http://soundfxcenter.com/movies/jurassic-park/8d82b5_Tyrannosaurus_Rex_Roaring_Sound_Effect.mp3",
+                ['audio' => "newvoice.mp3",
                 'name' => 'Department 3'],
-                ['audio' => "http://soundfxcenter.com/movies/jurassic-park/8d82b5_Tyrannosaurus_Rex_Roaring_Sound_Effect.mp3",
+                ['audio' => "newvoice.mp3",
                 'name' => 'Department 4'],
+                ['audio' => "newvoice.mp3",
+                'name' => 'Department 5'],
+                ['audio' => "newvoice.mp3",
+                'name' => 'Department 6'],
+                ['audio' => "newvoice.mp3",
+                'name' => 'Department 7'],
+                ['audio' => "newvoice.mp3",
+                'name' => 'Department 8'],
+                ['audio' => "newvoice.mp3",
+                'name' => 'Department 9'],
+                ['audio' => "newvoice.mp3",
+                'name' => 'Department 10'],
+                ['audio' => "newvoice.mp3",
+                'name' => 'Department 11'],
+                ['audio' => "newvoice.mp3",
+                'name' => 'Department 12'],
             ],
         );
         \App\Models\User::factory(10)->create();
-        \App\Models\Ticket::factory(10)->create();
+        \App\Models\Ticket::factory(30)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

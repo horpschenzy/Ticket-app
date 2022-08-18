@@ -14,8 +14,8 @@
   @if (isset(auth()->user()->department->audio))
     
   <button class="btn btn-primary float-end" value="PLAY" onclick="play()">Call Next Client</button>
-  <audio id="audio" src="{{auth()->user()->department->audio}}"></audio>
-  {{-- <audio id="audio" src="{{asset('/audio' .'/'.auth()->user()->department->audio)}}"></audio> --}}
+  {{-- <audio id="audio" src="{{auth()->user()->department->audio}}"></audio> --}}
+  <audio id="audio" src="{{asset('/audio' .'/'.auth()->user()->department->audio)}}"></audio>
   @endif
 
     <h1 class="h3 mb-3">Tickets</h1>
@@ -47,7 +47,7 @@
                             <td>{{$t->phone}}</td>
                             <td>{{$t->email}}</td>
                             <td>{{$t->department->name}}</td>
-                            <td>{{$t->status}}</td>
+                            <td>{{($t->status == 'PROCESSING') ? 'ATTENDING' : $t->status }}</td>
                             <td>{{$t->created_at}}</td>
                             @if (auth()->user()->role != "FRONTDESK")
                             <td><a href="/view-ticket/{{$t->id}}">View Ticket</a></td>
